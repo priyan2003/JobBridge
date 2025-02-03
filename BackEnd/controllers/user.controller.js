@@ -128,9 +128,8 @@ export const logOut = async (req, res) => {
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
-        console.log(fullname)
+        const file = req.file;
         const userId = req.id;
-        console.log(userId);
         let user = await User.findById(userId);
         if (!user) {
             return res.status(400).json({
