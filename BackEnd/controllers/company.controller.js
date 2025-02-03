@@ -18,11 +18,11 @@ export const registerCompany = async (req,res) => {
         company = Company.create({
             name: companyName,
             userId: req.id
-        })
+        }) 
         return res.status(200).json({
             mess: "Company registerd Successfully",
             company,
-            success: true
+            success: true         
         })
     } catch (error) {
         console.log(error);
@@ -39,6 +39,11 @@ export const getCompany = async (req,res) =>{
                 success: false
             })
         }
+        return res.status(200).json({
+            mess: "your companies",
+            companies,
+            success:true
+        })
     } catch (error) {
         console.log(error);
         
@@ -64,7 +69,6 @@ export const getCompanyById = async (req,res) =>{
         
     }
 }
-
 export const updateCompany = async (req,res) =>{
     try {
         const {name,discription,website,location} = req.body;
@@ -86,6 +90,5 @@ export const updateCompany = async (req,res) =>{
         })
     } catch (error) {
         console.log(error);
-        
     }
 }
