@@ -29,15 +29,19 @@ export const applyJob = async (req,res) => {
                 success: false
             })
         }
+        if (!job.applications) {
+            job.applications = [];
+        }
         // create a new application
         const newApplication = await Application.create({
             job: jobId,
             applicant: userId
         })
-        job.application=(newApplication._id);
+        
+        job.applications.push(newApplication._id);
         await job.save();
         return res.status(201).json({
-            mess: "Jon Applied successfully",
+            mess: "Job Applied successfully",
             newApplication,
             success: true
         })
@@ -78,26 +82,24 @@ export const getApplicants = async (req,res) => {
     try {
         const jobId = req.params.id;
         const job = await Job.findById(jobId).populate({
-            path:'application',
-            options: {sort:{createdAt:-1}},
+            path:'applications',
+            options:{sort:{createdAt:-1}},
             populate:{
-                path:'applicant',
-                options:{sort:{createdAt:-1}}
+                path:'applicant'
             }
         });
         if(!job){
             return res.status(404).json({
-                mess: "Job not found",
+                message:'Job not found.',
                 success:false
             })
-        }
+        };
         return res.status(200).json({
-            job,
-            success:true
-        })
+            job, 
+            succees:true
+        });
     } catch (error) {
         console.log(error);
-           
     }
 }
 
