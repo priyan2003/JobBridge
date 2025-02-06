@@ -22,9 +22,9 @@ const Navbar = () => {
         {/* right wala part */}
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-4">
-            <li>Home</li>
-            <li>Jobs</li>
-            <li>Browse</li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/jobs">Jobs</Link></li>
+            <li><Link to="/browse">Browse</Link></li>
           </ul>
           {!user ? (
             <div className="flex items-center gap-5">
@@ -42,7 +42,7 @@ const Navbar = () => {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-80 shadow-slate-400">
+              <PopoverContent className="w-80 shadow-lg rounded-xl p-3">
                 <div className="flex gap-5 space-y-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
@@ -61,7 +61,7 @@ const Navbar = () => {
                 <div className="flex gap-5 text-gray-5 my-5">
                   <div className="flex w-fit items-center gap-1 cursor-pointer">
                     <User2 />
-                    <button className="border-none hover:underline">
+                    <button className=" border-none hover:underline">
                       View Profile
                     </button>
                   </div>
