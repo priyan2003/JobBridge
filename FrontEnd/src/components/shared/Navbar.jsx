@@ -8,8 +8,9 @@ import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { LogOut, User2 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Navbar = () => {
-  const user = false;
+  const { user } = useSelector((store) => store.auth);
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
@@ -22,14 +23,28 @@ const Navbar = () => {
         {/* right wala part */}
         <div className="flex items-center gap-12">
           <ul className="flex font-medium items-center gap-4">
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/jobs">Jobs</Link></li>
-            <li><Link to="/browse">Browse</Link></li>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/jobs">Jobs</Link>
+            </li>
+            <li>
+              <Link to="/browse">Browse</Link>
+            </li>
           </ul>
           {!user ? (
             <div className="flex items-center gap-5">
-               <Link to="/login"><Button variant="outline" className="">Login</Button></Link>
-               <Link to="/signup"><Button className="bg-[#935fec] hover:bg-[#6b44ab]">Sign up</Button></Link>            
+              <Link to="/login">
+                <Button variant="outline" className="">
+                  Login
+                </Button>
+              </Link>
+              <Link to="/signup">
+                <Button className="bg-[#935fec] hover:bg-[#6b44ab]">
+                  Sign up
+                </Button>
+              </Link>
             </div>
           ) : (
             <Popover>
@@ -62,7 +77,7 @@ const Navbar = () => {
                   <div className="flex w-fit items-center gap-1 cursor-pointer">
                     <User2 />
                     <button className=" border-none hover:underline">
-                      View Profile
+                      <Link to="/profile">View Profile</Link>
                     </button>
                   </div>
                   <div className="flex w-fit items-center gap-1 cursor-pointer">

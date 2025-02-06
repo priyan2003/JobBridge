@@ -9,15 +9,18 @@ import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
 import Layout from './Layout'
 import Jobs from './components/Jobs/Jobs'
+import Browse from './components/Browse/Browse'
+import Profile from './components/Profile/Profile'
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='' element={<Home/>}/>
       <Route path='jobs' element={<Jobs/>}/>
-      {/* <Route path='browse' element={<Browse/>}/> */}
+      <Route path='browse' element={<Browse/>}/>
       <Route path='login' element={<Login/>}/>
       <Route path='signup' element={<Signup/>}/>
+      <Route path='profile' element={<Profile/>}/>
     </Route>
   )
 )
