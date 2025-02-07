@@ -116,7 +116,7 @@ function Login() {
           )}
 
           <span className="text-sm text-muted-foreground">
-            Don’t have an account?
+            Don't have an account?
             <Link to="/signup" className="text-blue-400">
               Sign up
             </Link>

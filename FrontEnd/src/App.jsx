@@ -11,12 +11,14 @@ import Layout from './Layout'
 import Jobs from './components/Jobs/Jobs'
 import Browse from './components/Browse/Browse'
 import Profile from './components/Profile/Profile'
+import JobDiscription from './components/Jobs/JobDiscription'
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='' element={<Home/>}/>
       <Route path='jobs' element={<Jobs/>}/>
+      <Route path='discription/:id' element={<JobDiscription/>}/>
       <Route path='browse' element={<Browse/>}/>
       <Route path='login' element={<Login/>}/>
       <Route path='signup' element={<Signup/>}/>
