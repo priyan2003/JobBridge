@@ -145,6 +145,14 @@ export const updateProfile = async (req, res) => {
         if(bio) user.profile.bio = bio;
         if(skills) user.profile.skills = skills.split(",");
         await user.save();
+        user = {
+            _id: user._id,
+            fullname: user.fullname,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            role: user.role,
+            profile: user.profile
+        }
         return res.status(200).json({
             mess: "Profile updated successfully",
             user,

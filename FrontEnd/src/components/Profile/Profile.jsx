@@ -7,11 +7,14 @@ import { Badge } from "../ui/badge";
 import { Label } from "../ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfile from "./UpdateProfile";
+import { useSelector } from "react-redux";
 
 const skills = ["Java", "Python", "JavaScript"];
 const haveResume = true;
 const Profile = () => {
   const [open, setOpen] = useState(false)
+  const {user} = useSelector(state=>state.auth);
+  // const skills = user?.profile?.skills;
   return (
     <div>
       <div className="max-w-4xl mx-auto bg-white border border-gray-200 rounded-2xl my-5 p-8 ">
@@ -21,11 +24,9 @@ const Profile = () => {
               <AvatarImage src="https://github.com/shadcn.png" />
             </Avatar>
             <div>
-              <h1 className="font-medium text-xl">Full Name</h1>
+              <h1 className="font-medium text-xl">{user?.fullname}</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-                officia commodi totam perferendis modi eos impedit error,
-                placeat enim?
+                {user?.profile?.bio}
               </p>
             </div>
           </div>
@@ -36,18 +37,18 @@ const Profile = () => {
         <div className="my-5">
           <div className="flex items-center gap-3 my-2">
             <Mail />
-            <span>abc@gmail.com</span>
+            <span>{user?.email}</span>
           </div>
           <div className="flex items-center gap-3 my-2">
             <Contact />
-            <span>4546552345</span>
+            <span>{user?.phoneNumber}</span>
           </div>
         </div>
         <div className="my-5">
           <h1>Skills</h1>
           <div className="flex items-center gap-3">
-            {skills.length !== 0 ? (
-              skills.map((skill, index) => <Badge key={index}>{skill}</Badge>)
+            {user?.profile?.skills.length !== 0 ? (
+              user?.profile?.skills.map((skill, index) => <Badge key={index}>{skill}</Badge>)
             ) : (
               <span>NA</span>
             )}
