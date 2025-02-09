@@ -9,7 +9,7 @@ import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfile from "./UpdateProfile";
 import { useSelector } from "react-redux";
 
-const skills = ["Java", "Python", "JavaScript"];
+// const skills = ["Java", "Python", "JavaScript"];
 const haveResume = true;
 const Profile = () => {
   const [open, setOpen] = useState(false)
@@ -21,7 +21,7 @@ const Profile = () => {
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="h-32 w-32">
-              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarImage src={user.profile.profilePhoto} />
             </Avatar>
             <div>
               <h1 className="font-medium text-xl">{user?.fullname}</h1>
@@ -59,10 +59,10 @@ const Profile = () => {
           {haveResume ? (
             <a
               target="blank"
-              href="https://google.com"
+              href={user?.profile?.resume}
               className="text-blue-400 w-full hover:underline cursor-pointer"
             >
-              myresume
+              {user?.profile?.resumeOriginalName}
             </a>
           ) : (
             <span>NA</span>

@@ -1,7 +1,13 @@
 import {Company} from "../models/company.model.js"
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/dataUri.js";
 export const registerCompany = async (req,res) => {
     try {
         const {companyName} = req.body;
+        const file = req.file;
+
+        const fileUri = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         if(!companyName){
             return res.status(400).json({
                 mess: "Please enter company Name",
@@ -17,7 +23,8 @@ export const registerCompany = async (req,res) => {
         }
         company = Company.create({
             name: companyName,
-            userId: req.id
+            userId: req.id,
+            logo : cloudResponse.secure_url
         }) 
         return res.status(200).json({
             mess: "Company registerd Successfully",
