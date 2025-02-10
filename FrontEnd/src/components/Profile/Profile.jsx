@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 // const skills = ["Java", "Python", "JavaScript"];
 const haveResume = true;
 const Profile = () => {
-  const [open, setOpen] = useState(false)
-  const {user} = useSelector(state=>state.auth);
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
   // const skills = user?.profile?.skills;
   return (
     <div>
@@ -21,16 +21,26 @@ const Profile = () => {
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
             <Avatar className="h-32 w-32">
-              <AvatarImage src={user.profile.profilePhoto} />
+              <AvatarImage
+                className="w-10 rounded-full"
+                src={
+                  user.profile.profilePhoto
+                    ? user.profile.profilePhoto
+                    : "https://github.com/shadcn.png"
+                }
+                alt="@shadcn"
+              />
             </Avatar>
             <div>
               <h1 className="font-medium text-xl">{user?.fullname}</h1>
-              <p>
-                {user?.profile?.bio}
-              </p>
+              <p>{user?.profile?.bio}</p>
             </div>
           </div>
-          <Button onClick={()=>setOpen(true)} className="text-right" variant="outline">
+          <Button
+            onClick={() => setOpen(true)}
+            className="text-right"
+            variant="outline"
+          >
             <Pen />
           </Button>
         </div>
@@ -48,7 +58,9 @@ const Profile = () => {
           <h1>Skills</h1>
           <div className="flex items-center gap-3">
             {user?.profile?.skills.length !== 0 ? (
-              user?.profile?.skills.map((skill, index) => <Badge key={index}>{skill}</Badge>)
+              user?.profile?.skills.map((skill, index) => (
+                <Badge key={index}>{skill}</Badge>
+              ))
             ) : (
               <span>NA</span>
             )}
@@ -74,7 +86,7 @@ const Profile = () => {
         {/* Application table */}
         <AppliedJobTable />
       </div>
-      <UpdateProfile open={open} setOpen={setOpen}/>
+      <UpdateProfile open={open} setOpen={setOpen} />
     </div>
   );
 };

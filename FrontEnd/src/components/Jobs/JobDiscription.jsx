@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Ghost } from "lucide-react";
 import { Button } from "../ui/button";
@@ -6,19 +6,40 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setSingleJob } from "@/redux/jobSlice";
-import { JOB_API_END_POINT } from "@/utils/constants";
+import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "@/utils/constants";
+import { toast } from "sonner";
 
 const JobDiscription = () => {
-  const isApplied = false;
+  
   const jobId = useParams().id;
   const dispatch = useDispatch();
   const {user} = useSelector(state=>state.auth)
+  const {singleJob} = useSelector(state=>state.job);
+  const isInitiallyApplied = singleJob?.applications?.some(application=>application.applicant === user?._id) || false;
+  const [isApplied,setIsApplied] = useState(isInitiallyApplied);
+  const applyJobHandler = async () => {
+    try {
+      const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`,{withCredentials:true});
+      console.log(res.data.newApplication);
+      
+      if(res.data.success){
+        setIsApplied(true);
+        const updateSingleJob = {...singleJob,applications:[...singleJob.applications,{applicant:user?._id}]}
+        dispatch(setSingleJob(updateSingleJob))
+        toast.success(res.data.mess);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.mess)
+    }
+  }
   useEffect(()=>{
     const fetchJobById = async () =>{
         try {
             const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`,{withCredentials: true});
             if(res.data.success){
                 dispatch(setSingleJob(res.data.job));
+                setIsApplied(res.data.job.applications.some(application=>application.applicant===user?._id))
             }
         } catch (error) {
             console.log(error);
@@ -27,7 +48,6 @@ const JobDiscription = () => {
     }  
     fetchJobById();
   },[jobId,dispatch,user._id])
-  const {singleJob} = useSelector(state=>state.job);
   return (
     <div className="max-w-7xl mx-auto my-10">
       <div className="flex items-center justify-between">
@@ -45,7 +65,7 @@ const JobDiscription = () => {
             </Badge>
           </div>
         </div>
-        <Button
+        <Button onClick={isApplied ? null : applyJobHandler}
           disabled={isApplied}
           className={`rounded-lg ${
             isApplied

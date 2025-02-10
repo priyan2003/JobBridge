@@ -3,7 +3,7 @@ import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/dataUri.js";
 export const registerCompany = async (req,res) => {
     try {
-        const {companyName} = req.body;
+        const {companyName} = req.body; 
         const file = req.file;
 
         const fileUri = getDataUri(file);
@@ -98,4 +98,4 @@ export const updateCompany = async (req,res) =>{
     } catch (error) {
         console.log(error);
     }
-}
+} 
