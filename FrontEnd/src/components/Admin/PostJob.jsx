@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-
+import { Button } from "../ui/button";
+import { useSelector } from "react-redux";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+const companyArray = [];
 const PostJob = () => {
   const [input, setInput] = useState({
     title: "",
@@ -10,17 +13,19 @@ const PostJob = () => {
     salary: 0,
     location: "",
     jobType: "",
-    experience: "",
+    experience: 0,
     position: 0,
     companyId: "",
   });
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: [e.target.value] });
   };
+  const {companies} = useSelector(store => store.company)
   return (
     <div>
       <div className="flex items-center justify-center w-screen">
-        <div className="grid grid-cols-2 gap-5">
+        <form action="" className="p-8 max-w-4xl border border-gray-200 shadow-lg rounded-xl">
+        <div className="grid grid-cols-2 gap-5 my-4">
           <div>
             <Label>Title</Label>
             <Input
@@ -28,7 +33,7 @@ const PostJob = () => {
               name="title"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.title}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
@@ -38,7 +43,7 @@ const PostJob = () => {
               name="description"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.description}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
@@ -48,7 +53,7 @@ const PostJob = () => {
               name="requirements"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.requirements}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
@@ -58,7 +63,7 @@ const PostJob = () => {
               name="salary"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.salary}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
@@ -68,7 +73,7 @@ const PostJob = () => {
               name="location"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.location}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
@@ -78,30 +83,57 @@ const PostJob = () => {
               name="jobType"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.jobType}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
             <Label>Experience</Label>
             <Input
-              type="text"
+              type="number"
               name="experience"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.experience}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
           <div>
             <Label>No of Position</Label>
             <Input
-              type="text"
+              type="number"
               name="position"
               className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
               value={input.position}
-              onChage={changeEventHandler}
+              onChange={changeEventHandler}
             />
           </div>
+          {
+            companies.length > 0 && (
+                <Select className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1">
+                    <SelectTrigger className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1">
+                        <SelectValue placeholder="Select company" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            {
+                                companies.map((company)=>{
+                                    return (
+                                        <SelectItem key={company._id} value={company.name}>
+                                            {company.name}
+                                        </SelectItem>
+                                    )
+                                })
+                            }
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+            )
+          }
         </div>
+        <Button className="w-full">Post Job</Button>
+        {
+            companyArray.length==0 && <p className="text-xs text-red-600 font-bold text-center my-3">*Please register a company before posting a job</p>
+        }
+        </form>
       </div>
     </div>
   );
