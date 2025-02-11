@@ -10,7 +10,7 @@ export const postJob = async (req,res) =>{
                 success: false
             })
         }
-        const job = Job.create({
+        const job = await Job.create({
             title,
             discription,
             requirements:requirements.split(','),
@@ -85,7 +85,9 @@ export const getJobById = async(req,res) => {
 export const getAdminJobs = async (req,res) => {
     try {
         const adminId = req.id;
-        const jobs = await Job.find({created_by: adminId});
+        const jobs = await Job.find({created_by: adminId}).populate({
+            path:'company'
+        });
         if(!jobs){
             return res.status(404).json({
                 mess: "Jobs not found",
