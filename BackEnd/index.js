@@ -35,7 +35,7 @@ app.use('/api/v1/company',companyRoute)
 // http://localhost:5000/api/v1/company/register
 // http://localhost:5000/api/v1/company/get
 // http://localhost:5000/api/v1/company/get/:id
-// http://localhost:5000/api/v1/company//update/:id
+// http://localhost:5000/api/v1/company/update/:id
 app.use('/api/v1/user',userRoute);
 // http://localhost:5000/api/v1/user/register
 // http://localhost:5000/api/v1/user/login
