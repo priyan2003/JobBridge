@@ -2,34 +2,34 @@ import { Job } from "../models/job.model.js";
 // ye admin post krega
 export const postJob = async (req,res) =>{
     try {
-        const {title,discription,requirements,salary,location,jobType,experience,position,companyId} = req.body;
+        const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
         const userId = req.id;
-        if(!title||!discription||!requirements||!salary||!location||!jobType||!position||!experience||!companyId){
+
+        if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
-                mess: "Something is missing",
+                message: "Somethin is missing.",
                 success: false
             })
-        }
+        };
         const job = await Job.create({
             title,
-            discription,
-            requirements:requirements.split(','),
+            description,
+            requirements: requirements.split(","),
             salary: Number(salary),
             location,
             jobType,
-            experienceLevel : experience,
+            experienceLevel: experience,
             position,
             company: companyId,
             created_by: userId
-        })
-        return res.status(200).json({
-            mess: "New job created successfully",
+        });
+        return res.status(201).json({
+            message: "New job created successfully.",
             job,
             success: true
-        })
+        });
     } catch (error) {
         console.log(error);
-        
     }
 }
 
@@ -39,7 +39,7 @@ export const getAllJobs = async (req,res) => {
         const query = {
             $or:[
                 {title: {$regex:keyword,$options:"i"}},
-                {discription: {$regex:keyword,$options:"i"}}
+                {description: {$regex:keyword,$options:"i"}}
             ]
         }
         const jobs = await Job.find(query).populate({
