@@ -10,9 +10,22 @@ import {
   TableRow,
 } from "../ui/table";
 import { useSelector } from "react-redux";
+import { toast } from "sonner";
+import axios from "axios";
+import { APPLICATION_API_END_POINT } from "@/utils/constants";
 
+const shortlistingStatus = ["Accepted", "Rejected"];
 const ApplicantsTable = () => {
-  const shortlistingStatus = ["Accepted", "Rejected"];
+  const statusHandler = async (status,id) => {
+    try {
+        const res = await axios.post(`${APPLICATION_API_END_POINT}/status/${id}/update`,{status},{withCredentials:true});
+        if(res.data.success){
+            toast(res.data.mess);
+        }
+    } catch (error) {
+        toast.error(error.response.data.mess);
+    }
+  }
   const { applicants } = useSelector((state) => state.application);
   return (
     <div>
@@ -34,9 +47,9 @@ const ApplicantsTable = () => {
               <TableCell>{item?.applicant?.fullname}</TableCell>
               <TableCell>{item?.applicant?.email}</TableCell>
               <TableCell>{item?.applicant?.phoneNumber}</TableCell>
-              <TableCell className="text-blue-500 cursor-pointer">
+              <TableCell>
                 {
-                    item?.applicant?.profile?.resume ? <a target="blank" href={item?.applicant?.profile?.resume}>{item?.applicant?.profile?.resumeOriginalName}</a> : <span>NA</span>
+                    item?.applicant?.profile?.resume ? <a className="text-blue-500 cursor-pointer" target="blank" href={item?.applicant?.profile?.resume}>{item?.applicant?.profile?.resumeOriginalName}</a> : <span>NA</span>
                 }
               </TableCell>
               <TableCell>{item?.applicant?.createdAt?.split("T")[0]}</TableCell>
@@ -48,7 +61,7 @@ const ApplicantsTable = () => {
                   <PopoverContent className="w-32">
                     {shortlistingStatus.map((status, index) => {
                       return (
-                        <div key={index}>
+                        <div className="my-3" onClick={()=>statusHandler(status,item?._id)} key={index}>
                           <span>{status}</span>
                         </div>
                       );
