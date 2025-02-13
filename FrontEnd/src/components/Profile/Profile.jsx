@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar } from "../ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
@@ -8,10 +8,12 @@ import { Label } from "../ui/label";
 import AppliedJobTable from "./AppliedJobTable";
 import UpdateProfile from "./UpdateProfile";
 import { useSelector } from "react-redux";
+import useGetAllAplliedJobs from "@/hooks/useGetAllAplliedJobs";
 
 // const skills = ["Java", "Python", "JavaScript"];
 const haveResume = true;
 const Profile = () => {
+  useGetAllAplliedJobs();
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state.auth);
   // const skills = user?.profile?.skills;

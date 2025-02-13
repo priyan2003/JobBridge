@@ -87,7 +87,7 @@ const JobDiscription = () => {
           Location: <span className="pl-3 font-normal text-gray-800">{singleJob?.location}</span>
         </h1>
         <h1 className="font-medium my-1">
-          Discription: <span className="pl-3 font-normal text-gray-800">{singleJob?.discription}</span>
+          Description: <span className="pl-3 font-normal text-gray-800">{singleJob?.description}</span>
         </h1>
         <h1 className="font-medium my-1">
           Experience: <span className="pl-3 font-normal text-gray-800">{singleJob?.experienceLevel} years</span>

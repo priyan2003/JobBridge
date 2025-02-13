@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../shared/Navbar";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
@@ -23,7 +23,7 @@ function Login() {
   };
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading ,user} = useSelector((state) => state.auth);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -46,6 +46,11 @@ function Login() {
       dispatch(setLoading(false));
     }
   };
+  useEffect(()=>{
+    if(user){
+      navigate("/")
+    }
+  })
   return (
     <div>
       <div className="flex items-center justify-center max-w-7xl mx-auto pb-24">

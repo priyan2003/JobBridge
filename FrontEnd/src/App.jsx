@@ -1,8 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import Navbar from './components/shared/Navbar'
 import { createBrowserRouter, RouterProvider,Route ,createRoutesFromElements} from 'react-router-dom'
 import Home from './components/Home/Home'
 import Login from './components/auth/Login'
@@ -18,6 +14,7 @@ import CompanySetup from './components/Admin/CompanySetup'
 import AdminJobs from './components/Admin/AdminJobs'
 import PostJob from './components/Admin/PostJob'
 import Applicants from './components/Admin/Applicants'
+import ProtectedRoute from './components/Admin/ProtectedRoute'
 
 const appRouter = createBrowserRouter(
   createRoutesFromElements(
@@ -29,12 +26,13 @@ const appRouter = createBrowserRouter(
       <Route path='login' element={<Login/>}/>
       <Route path='signup' element={<Signup/>}/>
       <Route path='profile' element={<Profile/>}/>
-      <Route path='admin/companies' element={<Companies/>}/>
-      <Route path='admin/companies/:id' element={<CompanySetup/>}/>
-      <Route path='admin/companies/register' element={<CreateCompany/>}/>
-      <Route path='admin/jobs' element={<AdminJobs/>}/>
-      <Route path='admin/job/post' element={<PostJob/>}/>
-      <Route path='admin/jobs/:id/applicants' element={<Applicants/>}/>
+      {/* admins Routes */}
+      <Route path='admin/companies' element={<ProtectedRoute><Companies/></ProtectedRoute>}/>
+      <Route path='admin/companies/:id' element={<ProtectedRoute><CompanySetup/></ProtectedRoute>}/>
+      <Route path='admin/companies/register' element={<ProtectedRoute><CreateCompany/></ProtectedRoute>}/>
+      <Route path='admin/jobs' element={<ProtectedRoute><AdminJobs/></ProtectedRoute>}/>
+      <Route path='admin/job/post' element={<ProtectedRoute><PostJob/></ProtectedRoute>}/>
+      <Route path='admin/jobs/:id/applicants' element={<ProtectedRoute><Applicants/></ProtectedRoute>}/>
     </Route>
   )
 )
