@@ -95,7 +95,7 @@ const Navbar = () => {
                   />
                 </Avatar>
               </PopoverTrigger>
-              <PopoverContent className="w-80 shadow-lg rounded-xl p-3">
+              <PopoverContent className="w-80 shadow-lg rounded-xl p-3 bg-white dark:bg-gray-800">
                 <div className="flex gap-5 space-y-2">
                   <Avatar className="cursor-pointer">
                     <AvatarImage
@@ -116,10 +116,10 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className="flex gap-5 text-gray-5 my-5">
-                  {user && user.role==='student' && (
+                  {user && user.role === "student" && (
                     <div className="flex w-fit items-center gap-1 cursor-pointer">
                       <User2 />
-                      <button className=" border-none hover:underline">
+                      <button className="border-none hover:underline">
                         <Link to="/profile">View Profile</Link>
                       </button>
                     </div>

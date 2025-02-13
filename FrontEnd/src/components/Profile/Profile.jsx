@@ -24,7 +24,7 @@ const Profile = () => {
           <div className="flex items-center gap-4">
             <Avatar className="h-32 w-32">
               <AvatarImage
-                className="w-10 rounded-full"
+                className=" rounded-full"
                 src={
                   user.profile.profilePhoto
                     ? user.profile.profilePhoto
@@ -57,11 +57,11 @@ const Profile = () => {
           </div>
         </div>
         <div className="my-5">
-          <h1>Skills</h1>
+          <h1 className="text-lg font-medium">Skills</h1>
           <div className="flex items-center gap-3">
             {user?.profile?.skills.length !== 0 ? (
               user?.profile?.skills.map((skill, index) => (
-                <Badge key={index}>{skill}</Badge>
+                <Badge className={"bg-blue-600 text-white"} key={index}>{skill}</Badge>
               ))
             ) : (
               <span>NA</span>

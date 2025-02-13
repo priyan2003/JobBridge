@@ -61,7 +61,7 @@ const ApplicantsTable = () => {
                   <PopoverContent className="w-32">
                     {shortlistingStatus.map((status, index) => {
                       return (
-                        <div className="my-3" onClick={()=>statusHandler(status,item?._id)} key={index}>
+                        <div className="my-3 cursor-pointer" onClick={()=>statusHandler(status,item?._id)} key={index}>
                           <span>{status}</span>
                         </div>
                       );

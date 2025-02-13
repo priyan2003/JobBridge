@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { RadioGroup } from "../ui/radio-group";
@@ -29,7 +29,7 @@ function Signup() {
   };
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading,user } = useSelector((state) => state.auth);
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -60,6 +60,11 @@ function Signup() {
       dispatch(setLoading(false));
     }
   };
+  useEffect(()=>{
+      if(user){
+        navigate("/")
+      }
+    })
   return (
     <div>
       <div className="flex items-center justify-center max-w-7xl mx-auto">
