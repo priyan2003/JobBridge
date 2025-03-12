@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 import { Ghost } from "lucide-react";
 import { Button } from "../ui/button";
@@ -47,7 +47,7 @@ const JobDiscription = () => {
         }
     }  
     fetchJobById();
-  },[jobId,dispatch,user._id])
+  },[jobId,dispatch,user?._id])
   return (
     <div className="max-w-7xl mx-auto my-10">
       <div className="flex items-center justify-between">
@@ -61,7 +61,7 @@ const JobDiscription = () => {
             {singleJob?.jobType}
             </Badge>
             <Badge variant={Ghost} className={"text-blue-600 font-bold"}>
-            {singleJob?.salary}
+            {singleJob?.salary}LPA
             </Badge>
           </div>
         </div>
@@ -76,8 +76,8 @@ const JobDiscription = () => {
           {isApplied ? "Already Applied" : "Apply Now"}
         </Button>
       </div>
-      <h1 className="border-b-2 border-b-gray-300 font-medium p-3">
-        Job Discription
+      <h1 className="border-b-2 border-b-gray-300 font-bold p-3">
+        Job Description
       </h1>
       <div>
         <h1 className="font-medium my-1">
@@ -90,11 +90,14 @@ const JobDiscription = () => {
           Description: <span className="pl-3 font-normal text-gray-800">{singleJob?.description}</span>
         </h1>
         <h1 className="font-medium my-1">
+          Requirements: <span className="pl-3 font-normal text-gray-800">{singleJob?.requirements}</span>
+        </h1>
+        <h1 className="font-medium my-1">
           Experience: <span className="pl-3 font-normal text-gray-800">{singleJob?.experienceLevel} years</span>
         </h1>
         <h1 className="font-medium my-1">
           Salary: <span className="pl-3 font-normal text-gray-800">
-          {singleJob?.salary}
+          {singleJob?.salary} LPA
           </span>
         </h1>
         <h1 className="font-medium my-1">

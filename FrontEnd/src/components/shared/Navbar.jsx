@@ -115,11 +115,11 @@ const Navbar = () => {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-5 text-gray-5 my-5">
+                <div className="flex gap-5 text-gray-5 my-5 outline:none">
                   {user && user.role === "student" && (
-                    <div className="flex w-fit items-center gap-1 cursor-pointer">
+                    <div className="flex w-fit items-center gap-1 cursor-pointer outline:none">
                       <User2 />
-                      <button className="border-none hover:underline">
+                      <button className="border-none hover:underline outline:none">
                         <Link to="/profile">View Profile</Link>
                       </button>
                     </div>
