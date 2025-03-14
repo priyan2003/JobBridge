@@ -25,7 +25,7 @@ const Applicants = () => {
       }
     };
     fetchAllApplicants();
-  }, []);
+  }, [params.id, dispatch]);
   return (
     <div>
       <div className="max-w-7xl mx-auto">
