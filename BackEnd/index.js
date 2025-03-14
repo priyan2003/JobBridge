@@ -7,8 +7,11 @@ import userRoute from './routes/user.route.js';
 import companyRoute from './routes/company.route.js';
 import jobRoute from './routes/job.route.js'
 import applicationRoute from './routes/application.route.js'
+import path from "path"
 dotenv.config();
 const app = express();
+
+const _dirname = path.resolve();
 
 
 app.use(express.json());
@@ -40,6 +43,10 @@ app.use('/api/v1/user',userRoute);
 // http://localhost:5000/api/v1/user/register
 // http://localhost:5000/api/v1/user/login
 // http://localhost:5000/api/v1/user/profile/update
+app.use(express.static(path.join(_dirname,"/FrontEnd/dist")));
+app.get('*',(req, res) => {
+    res.sendFile(path.resolve(_dirname, "FrontEnd", "dist", "index.html"));
+});
 app.listen(PORT,()=>{
     connectDB();
     console.log(`Server running at port ${PORT}`);
